@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chiếc Hộp Bí Ẩn</title>
+<style>
+:root{--bg:#0b1024;--panel:#151d3b;--panel2:#1c2850;--gold:#ffd166;--cyan:#69e2f2;--pink:#ff719a;--green:#73e2a7;--text:#f5f7ff;--muted:#b9c4e8}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#25346b 0%,#101735 42%,#080c1d 100%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
+header{text-align:center;padding:30px 16px 20px} .eyebrow{letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);font-size:.78rem;font-weight:800}
+h1{font-size:clamp(2rem,5vw,3.6rem);margin:8px 0;color:var(--gold);text-shadow:0 4px 24px #ffd16633}.subtitle{color:var(--muted);margin:0 auto;max-width:760px}
+main{max-width:1200px;margin:auto;padding:0 16px 48px}.toolbar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0 24px}
+button,.btn{border:0;border-radius:12px;padding:11px 15px;font-weight:800;cursor:pointer;transition:.15s; color:#11182d;background:var(--gold)}button:hover{transform:translateY(-2px);filter:brightness(1.07)}button:disabled{opacity:.35;cursor:not-allowed;transform:none}
+button.secondary{background:#dce5ff}button.cyan{background:var(--cyan)}button.pink{background:var(--pink)}button.green{background:var(--green)}button.dark{background:#2c396b;color:var(--text);border:1px solid #52649e}
+.section-title{font-size:1.2rem;margin:24px 0 12px;display:flex;align-items:center;gap:8px}
+.teams{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.team{background:linear-gradient(145deg,#1b2750,#121a37);border:1px solid #354777;border-radius:16px;padding:15px;position:relative;overflow:hidden}.team.active{outline:2px solid var(--gold);box-shadow:0 0 24px #ffd16622}.team h3{margin:0 0 8px;font-size:1rem}.money{font-size:1.55rem;font-weight:900;color:var(--green);font-variant-numeric:tabular-nums}.team small{color:var(--muted)}.team input{width:100%;margin-top:9px;background:#0c1430;color:white;border:1px solid #43558d;border-radius:8px;padding:8px}
+.panel{background:#121a36cc;border:1px solid #344574;border-radius:20px;padding:18px;margin-top:18px;box-shadow:0 12px 36px #0002}.auction-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.auction-row label{color:var(--muted);font-weight:700}.auction-row select,.auction-row input,select,input,textarea{font:inherit}.auction-row select,.auction-row input{background:#0b1330;border:1px solid #43558d;color:white;border-radius:10px;padding:10px}
+.boxes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.gift{min-height:150px;border-radius:17px;border:1px solid #5967a0;background:linear-gradient(145deg,#283a77,#18214b);color:white;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}.gift .emoji{font-size:2.3rem}.gift strong{font-size:1.05rem;margin-top:6px}.gift small{color:#c6d2ff;margin-top:5px}.gift.sold{background:linear-gradient(145deg,#27314d,#151c31);border-color:#4b5777}.gift.opened{border-color:var(--gold);box-shadow:inset 0 0 30px #ffd16618}.gift .mini{margin-top:9px;font-size:.8rem;color:var(--gold)}
+.question-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}.question-card{background:#19244a;border-radius:16px;padding:18px;border:1px solid #3b4c81}.question-card h3{margin-top:0}.question-card label{display:block;color:var(--muted);font-weight:700;margin:12px 0 6px}.question-card input,.question-card textarea,.question-card select{width:100%;padding:10px;border-radius:9px;border:1px solid #43558d;background:#0b1330;color:white}.question-card textarea{min-height:75px;resize:vertical}.muted{color:var(--muted)}.hidden{display:none!important}
+.modal-backdrop{position:fixed;inset:0;background:#050817e8;display:flex;align-items:center;justify-content:center;padding:18px;z-index:20}.modal{width:min(760px,100%);max-height:92vh;overflow:auto;background:linear-gradient(150deg,#202d5c,#111832);border:1px solid #6375b5;border-radius:22px;padding:clamp(18px,4vw,30px);box-shadow:0 20px 80px #0009}.modal h2{color:var(--gold);margin-top:0}.question-text{font-size:clamp(1.15rem,2.6vw,1.65rem);line-height:1.5;white-space:pre-wrap}.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.choice{padding:13px;border-radius:12px;background:#111a38;border:1px solid #45578f}.choice.correct{border-color:var(--green);background:#173c3b}.answer{margin-top:15px;padding:14px;border-radius:12px;background:#10332f;border:1px solid #3c9b7e;white-space:pre-wrap}.modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.notice{color:var(--muted);font-size:.9rem;margin-top:8px}.status{color:var(--gold);font-weight:800}.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.rule{background:#1a2548;padding:13px;border-radius:12px;color:var(--muted)}.rule b{display:block;color:white;font-size:1.15rem;margin-bottom:3px}
+footer{text-align:center;color:#8190bd;padding:22px 12px;font-size:.85rem}
+@media(max-width:760px){.teams,.boxes{grid-template-columns:repeat(2,minmax(0,1fr))}.question-layout{grid-template-columns:1fr}.rules{grid-template-columns:1fr}.team h3{font-size:.9rem}.money{font-size:1.25rem}}
+@media(max-width:420px){.boxes{gap:8px}.gift{min-height:130px;padding:9px}.choices{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Trò chơi đấu giá kiến thức</div>
+  <h1>🎁 CHIẾC HỘP BÍ ẨN</h1>
+  <p class="subtitle">Bốn đội tranh tài, tám chiếc hộp bất ngờ — đấu giá thông minh, trả lời thật nhanh và săn điểm thưởng!</p>
+</header>
+<main>
+  <div class="toolbar">
+    <button class="cyan" onclick="scrollToSection('auction')">🎯 Đến khu đấu giá</button>
+    <button class="secondary" onclick="scrollToSection('editor')">✏️ Chỉnh sửa câu hỏi</button>
+    <button class="dark" onclick="showRules()">📜 Luật chơi</button>
+    <button class="pink" onclick="resetGame()">↻ Chơi lại từ đầu</button>
+  </div>
+  <h2 class="section-title">🏆 Bảng ngân quỹ các đội</h2>
+  <div class="teams" id="teams"></div>
+  <div class="panel" id="auction">
+    <h2 class="section-title" style="margin-top:0">🔨 Khu vực đấu giá</h2>
+    <div class="auction-row">
+      <label for="activeTeam">Đội đang đấu giá</label><select id="activeTeam" onchange="renderTeams()"></select>
+      <label for="bidAmount">Mức trả (đồng)</label><input id="bidAmount" type="number" min="50000" step="50000" value="100000">
+      <button onclick="placeBid()">💰 Trả giá</button>
+      <button class="secondary" onclick="passBid()">Bỏ lượt</button>
+    </div>
+    <p class="notice">Mỗi hộp được bán cho đội trả giá cao nhất. Mức giá sẽ trừ khỏi ngân quỹ đội thắng. Giá khởi điểm: 50.000đ; có thể chỉnh mức trả.</p>
+    <div id="auctionStatus" class="status" aria-live="polite">Chọn một hộp để bắt đầu đấu giá.</div>
+    <div class="boxes" id="boxes" style="margin-top:14px"></div>
+  </div>
+  <div class="panel">
+    <h2 class="section-title" style="margin-top:0">📊 Bảng tổng kết</h2>
+    <div id="summary" class="muted">Chưa có hộp nào được mở.</div>
+  </div>
+  <div class="panel" id="editor">
+    <h2 class="section-title" style="margin-top:0">✏️ Tùy chỉnh 8 câu hỏi</h2>
+    <p class="muted">Bạn có thể sửa nội dung, loại câu hỏi, lựa chọn và đáp án bất cứ lúc nào. Bốn câu đầu mặc định là trắc nghiệm, bốn câu sau là tự luận.</p>
+    <div class="question-layout" id="editors"></div>
+    <div class="toolbar" style="margin-bottom:0"><button class="green" onclick="saveQuestions()">💾 Lưu nội dung câu hỏi</button><button class="secondary" onclick="restoreQuestions()">Khôi phục câu hỏi mẫu</button></div>
+    <p id="saveMessage" class="notice" aria-live="polite"></p>
+  </div>
+</main>
+<footer>Chiếc Hộp Bí Ẩn • Dùng trực tiếp trên trình duyệt • Chúc các đội chơi vui vẻ!</footer>
+<div id="modalRoot"></div>
+<script>
+const initialQuestions = [
+ {type:'mcq',q:'Vật lí có những thành tựu nổi bật nào?',opts:['Vật lí y sinh, nano, chất bán dẫn','Vật lí laser và nghiên cứu về thiên văn, vũ trụ','Vật lí hạt cơ bản và năng lượng cao','Tất cả ý trên đều đúng'],answer:'D. Tất cả ý trên đều đúng'},
+ {type:'mcq',q:'Laser đầu tiên được phát minh bởi ai?',opts:['Elon Musk','Theodore Maiman','Napoleon Bonaparte','Cristiano Ronaldo'],answer:'B. Theodore Maiman'},
+ {type:'mcq',q:'Ai là một trong những người đặt nền móng cho vật lí bán dẫn?',opts:['Marie Curie','Karl Ferdinand Braun','Alexander','Theodore Maiman'],answer:'B. Karl Ferdinand Braun'},
+ {type:'mcq',q:'Trong mô hình chuẩn của vật lí hạt, nhóm fermion được chia thành hai loại hạt cơ bản nào?',opts:['Baryon và Meson','Gauge Boson và Higgs Boson','Hadron và Lepton','Lepton và Quark'],answer:'D. Lepton và Quark'},
+ {type:'essay',q:'Hạt sơ cấp là gì?',opts:[],answer:'Hạt sơ cấp (hạt cơ bản) là những hạt hạ nguyên tử không có cấu trúc phụ đã biết, không thể chia nhỏ hơn theo hiểu biết hiện nay.'},
+ {type:'essay',q:'Vật lí thiên văn và vũ trụ là gì?',opts:[],answer:'Vật lí thiên văn và vũ trụ là ngành khoa học nghiên cứu các thiên thể và những hiện tượng xảy ra trong vũ trụ, như Mặt Trời, các ngôi sao, hành tinh, thiên hà, lỗ đen và sự hình thành, phát triển của vũ trụ.'},
+ {type:'essay',q:'Vật lí y sinh là gì?',opts:[],answer:'Là lĩnh vực kết hợp Vật lí – Sinh học – Y học. Ứng dụng các nguyên lý vật lí để chẩn đoán, điều trị và nghiên cứu bệnh.'},
+ {type:'essay',q:'Vật lí laser được ứng dụng trong những lĩnh vực nào?',opts:[],answer:'Ứng dụng trong công nghiệp, y học, viễn thông, nghiên cứu vũ trụ,...'}
+];
+let questions = structuredClone(initialQuestions);
+let teams = Array.from({length:4},(_,i)=>({name:`Đội ${i+1}`,money:1000000,points:0,boxes:[],bids:[]}));
+let boxes = [], selectedBox = null, currentBid = 0, currentLeader = null, passed = new Set(), activeBoxForModal = null;
+const money = n => new Intl.NumberFormat('vi-VN').format(n)+'đ';
+function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function newBoxes(){let rewards=shuffle(['thief','thief',20,20,20,20,50,50]);boxes=rewards.map((reward,i)=>({id:i,reward,points:typeof reward==='number'?reward:0,owner:null,price:0,opened:false}));}
+function init(){document.getElementById('activeTeam').innerHTML=teams.map((t,i)=>`<option value="${i}">${esc(t.name)}</option>`).join('');newBoxes();renderTeams();renderBoxes();renderEditors();renderSummary();}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function renderTeams(){let active=+document.getElementById('activeTeam').value||0;document.getElementById('teams').innerHTML=teams.map((t,i)=>`<div class="team ${i===active?'active':''}"><h3>🏳️ ${esc(t.name)}</h3><div class="money">${money(t.money)}</div><small>Điểm: <b>${t.points}</b> • Đã mua: ${t.boxes.length} hộp</small><input aria-label="Tên đội ${i+1}" value="${esc(t.name)}" onchange="renameTeam(${i},this.value)" placeholder="Tên đội"></div>`).join('');}
+function renameTeam(i,name){teams[i].name=name.trim()||`Đội ${i+1}`;document.getElementById('activeTeam').options[i].text=teams[i].name;renderTeams();}
+function renderBoxes(){document.getElementById('boxes').innerHTML=boxes.map((b,i)=>{let title=b.owner===null?'Chưa bán':`Đã thuộc ${teams[b.owner].name}`;let icon=b.opened?(b.reward==='thief'?'🦹‍♂️':b.points===50?'🌟':'🎉'):'🎁';return `<button class="gift ${b.owner!==null?'sold':''} ${b.opened?'opened':''}" onclick="selectBox(${i})" ${b.opened?'disabled':''}><span class="emoji">${icon}</span><strong>Hộp bí ẩn ${i+1}</strong><small>${title}</small>${b.owner!==null?`<span class="mini">Giá: ${money(b.price)}</span>`:'<span class="mini">Chạm để đấu giá</span>'}</button>`}).join('');}
+function selectBox(i){if(boxes[i].opened)return;if(selectedBox===i){document.getElementById('auctionStatus').textContent=`Đang đấu giá Hộp ${i+1}. Đội trả giá cao nhất hiện tại: ${currentLeader===null?'chưa có':teams[currentLeader].name+' — '+money(currentBid)}.`;return;}selectedBox=i;currentBid=0;currentLeader=null;passed.clear();document.getElementById('auctionStatus').textContent=`Đã chọn Hộp ${i+1}. Đội đang chọn trong danh sách có thể trả giá.`;renderBoxes();}
+function placeBid(){if(selectedBox===null){alert('Bạn hãy chọn một hộp quà trước nhé!');return;}let ti=+document.getElementById('activeTeam').value;let amount=Math.floor(+document.getElementById('bidAmount').value);if(!Number.isFinite(amount)||amount<50000){alert('Mức trả giá tối thiểu là 50.000đ.');return;}if(amount<=currentBid){alert('Giá mới phải cao hơn mức giá hiện tại ('+money(currentBid)+').');return;}if(teams[ti].money<amount){alert('Đội này không đủ ngân quỹ để trả mức giá đó.');return;}if(currentLeader!==null)teams[currentLeader].bids.push({box:selectedBox+1,amount:currentBid,won:false});currentBid=amount;currentLeader=ti;passed.delete(ti);document.getElementById('auctionStatus').textContent=`${teams[ti].name} đang dẫn giá Hộp ${selectedBox+1} với ${money(amount)}. Khi chốt, bấm “Chốt đấu giá”.`;renderTeams();renderBoxes();showCloseAuctionButton();}
+function showCloseAuctionButton(){let old=document.getElementById('closeAuctionBtn');if(!old){let b=document.createElement('button');b.id='closeAuctionBtn';b.textContent='🔨 Chốt đấu giá';b.onclick=closeAuction;document.querySelector('#auction .auction-row').appendChild(b);}}
+function passBid(){if(selectedBox===null){alert('Hãy chọn một hộp trước nhé!');return;}let ti=+document.getElementById('activeTeam').value;passed.add(ti);let next=(ti+1)%4;for(let k=0;k<4;k++){let cand=(ti+1+k)%4;if(!passed.has(cand)&&teams[cand].money>=Math.max(50000,currentBid+50000)){next=cand;break;}}document.getElementById('activeTeam').value=next;renderTeams();document.getElementById('auctionStatus').textContent=`${teams[ti].name} bỏ lượt. Đội tiếp theo: ${teams[next].name}.`;if(passed.size>=4)closeAuction();}
+function closeAuction(){if(selectedBox===null){alert('Chưa chọn hộp.');return;}if(currentLeader===null){document.getElementById('auctionStatus').textContent='Chưa có đội trả giá. Hãy trả giá hoặc chọn hộp khác.';return;}let b=boxes[selectedBox];if(b.owner!==null){alert('Hộp này đã được bán.');return;}let t=teams[currentLeader];if(t.money<currentBid){alert('Ngân quỹ không đủ nữa, hãy đấu giá lại.');return;}t.money-=currentBid;t.boxes.push(b.id);t.bids.push({box:b.id+1,amount:currentBid,won:true});b.owner=currentLeader;b.price=currentBid;document.getElementById('auctionStatus').textContent=`Đã chốt! ${t.name} mua Hộp ${b.id+1} với ${money(currentBid)}.`;selectedBox=null;currentBid=0;currentLeader=null;passed.clear();let btn=document.getElementById('closeAuctionBtn');if(btn)btn.remove();renderTeams();renderBoxes();renderSummary();openBoxPrompt(b.id);}
+function openBoxPrompt(i){let b=boxes[i];let q=questions[i];activeBoxForModal=i;let opts=q.type==='mcq'?`<div class="choices">${q.opts.map((o,j)=>`<div class="choice" id="choice${j}"><b>${'ABCD'[j]}.</b> ${esc(o)}</div>`).join('')}</div>`:'';document.getElementById('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true"><div class="eyebrow">Hộp bí ẩn ${i+1} • ${q.type==='mcq'?'Trắc nghiệm':'Tự luận'}</div><h2>📦 Câu hỏi bên trong hộp</h2><div class="question-text">${esc(q.q)}</div>${opts}<div id="answerArea" class="hidden"></div><div class="modal-actions"><button class="green" id="revealBtn" onclick="revealAnswer(${i})">👀 Hiện đáp án</button><button class="secondary" onclick="awardPoints(${i})">⭐ Cộng/trừ điểm & đóng</button><button class="dark" onclick="closeModal()">Đóng lại</button></div><p class="notice">Kết quả ngẫu nhiên của hộp chỉ được tiết lộ khi bạn bấm “Cộng/trừ điểm & đóng”.</p></div></div>`;}
+function revealAnswer(i){let q=questions[i];let area=document.getElementById('answerArea');area.classList.remove('hidden');area.className='answer';area.innerHTML='<b>Đáp án / gợi ý:</b><br>'+esc(q.answer||'Chưa nhập đáp án. Bạn có thể bổ sung trong phần tùy chỉnh câu hỏi.');if(q.type==='mcq'){let correct=(q.answer||'').trim().charAt(0).toUpperCase();let idx='ABCD'.indexOf(correct);if(idx>=0){let el=document.getElementById('choice'+idx);if(el)el.classList.add('correct');}}document.getElementById('revealBtn').disabled=true;}
+function awardPoints(i){
+ let b=boxes[i];if(!b||b.opened){closeModal();return;}b.opened=true;
+ if(b.reward==='thief'){
+  const eligible=teams.map((t,idx)=>({t,idx})).filter(x=>x.idx!==b.owner);
+  let choices=eligible.map(x=>`<option value="${x.idx}">${esc(x.t.name)} — ${x.t.points} điểm</option>`).join('');
+  document.getElementById('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true"><div class="eyebrow">Lá phiếu đặc biệt</div><h2>🦹‍♂️ LÁ PHIẾU TÊN TRỘM!</h2><p class="question-text">${esc(teams[b.owner].name)} mở được lá phiếu có quyền trộm điểm của một đội khác!</p>${eligible.length?`<label for="stealTarget" style="display:block;margin:14px 0 6px;color:var(--muted);font-weight:700">Chọn đội bị trộm điểm</label><select id="stealTarget" style="width:100%;padding:12px;border-radius:10px;background:#0b1330;color:white;border:1px solid #43558d">${choices}</select><p class="notice">Lá phiếu có hiệu lực cố định: đội sử dụng được cộng 30 điểm, đội bị chọn bị trừ 30 điểm.</p><div class="modal-actions"><button class="pink" onclick="executeSteal(${i})">🦹 Thực hiện vụ trộm</button></div>`:`<p class="muted">Hiện chưa có đội nào khác có điểm để trộm. Lá phiếu đã được sử dụng.</p><div class="modal-actions"><button class="green" onclick="closeModal()">Tiếp tục trò chơi</button></div>`}</div></div>`;
+  renderTeams();renderBoxes();renderSummary();return;
+ }
+ teams[b.owner].points+=b.points;let pts=b.points===50?'🌟 50 điểm!':'🎉 20 điểm!';
+ document.getElementById('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true"><div class="eyebrow">Kết quả chiếc hộp</div><h2>${pts}</h2><p class="question-text">${esc(teams[b.owner].name)} nhận ${b.points} điểm!</p><p class="muted">Ngân quỹ còn lại: <b>${money(teams[b.owner].money)}</b> • Tổng điểm: <b>${teams[b.owner].points}</b></p><div class="modal-actions"><button class="green" onclick="closeModal()">Tiếp tục trò chơi</button></div></div></div>`;
+ renderTeams();renderBoxes();renderSummary();
+}
+function executeSteal(i){
+ const b=boxes[i],target=+document.getElementById('stealTarget').value;const amount=30;
+ if(target===b.owner||!teams[target]){alert('Hãy chọn một đội khác.');return;}
+ teams[target].points-=30;teams[b.owner].points+=30;
+ document.getElementById('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true"><div class="eyebrow">Vụ trộm thành công!</div><h2>🦹‍♂️💰 ĐÃ TRỘM ĐIỂM!</h2><p class="question-text">${esc(teams[b.owner].name)} trộm thành công <b>${amount} điểm</b> từ ${esc(teams[target].name)}!</p><p class="muted">${esc(teams[b.owner].name)} hiện có ${teams[b.owner].points} điểm. ${esc(teams[target].name)} còn ${teams[target].points} điểm.</p><div class="modal-actions"><button class="green" onclick="closeModal()">Tiếp tục trò chơi</button></div></div></div>`;
+ renderTeams();renderBoxes();renderSummary();
+}
+function closeModal(){document.getElementById('modalRoot').innerHTML='';renderSummary();}
+function renderSummary(){let opened=boxes.filter(b=>b.opened).length;let sorted=teams.map((t,i)=>({...t,index:i})).sort((a,b)=>b.points-a.points||b.money-a.money);document.getElementById('summary').innerHTML=`Đã mở <b>${opened}/8</b> hộp.<div style="margin-top:12px;display:grid;gap:8px">${sorted.map((t,i)=>`<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#1a2548;padding:11px 13px;border-radius:10px"><span>${i===0?'🥇':i===1?'🥈':i===2?'🥉':'🏳️'} <b>${esc(t.name)}</b></span><span>Điểm: <b>${t.points}</b> &nbsp;|&nbsp; Tiền còn: <b>${money(t.money)}</b></span></div>`).join('')}</div>`;}
+function renderEditors(){document.getElementById('editors').innerHTML=questions.map((q,i)=>`<div class="question-card"><h3>📦 Hộp ${i+1}</h3><label for="type${i}">Loại câu hỏi</label><select id="type${i}" onchange="toggleOptions(${i})"><option value="mcq" ${q.type==='mcq'?'selected':''}>Trắc nghiệm</option><option value="essay" ${q.type==='essay'?'selected':''}>Tự luận</option></select><label for="q${i}">Nội dung câu hỏi</label><textarea id="q${i}">${esc(q.q)}</textarea><div id="optsWrap${i}" class="${q.type==='mcq'?'':'hidden'}"><label>Các phương án A, B, C, D (mỗi phương án một dòng)</label><textarea id="opts${i}">${esc(q.opts.join('\n'))}</textarea></div><label for="ans${i}">Đáp án / gợi ý trả lời</label><textarea id="ans${i}">${esc(q.answer)}</textarea></div>`).join('');}
+function toggleOptions(i){let type=document.getElementById('type'+i).value;document.getElementById('optsWrap'+i).classList.toggle('hidden',type!=='mcq');}
+function saveQuestions(){for(let i=0;i<8;i++){let type=document.getElementById('type'+i).value;let opts=(document.getElementById('opts'+i)?.value||'').split('\n').map(x=>x.trim()).filter(Boolean);if(type==='mcq'&&opts.length!==4){alert(`Hộp ${i+1}: câu trắc nghiệm cần đúng 4 phương án, mỗi phương án một dòng.`);return;}questions[i]={type,q:document.getElementById('q'+i).value.trim()||`Câu hỏi ${i+1}`,opts:type==='mcq'?opts:[],answer:document.getElementById('ans'+i).value.trim()};}document.getElementById('saveMessage').textContent='Đã lưu 8 câu hỏi! Nội dung sẽ được dùng khi mở hộp.';}
+function restoreQuestions(){if(!confirm('Khôi phục 8 câu hỏi mẫu?'))return;questions=structuredClone(initialQuestions);renderEditors();document.getElementById('saveMessage').textContent='Đã khôi phục câu hỏi mẫu.';}
+function showRules(){document.getElementById('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal" role="dialog" aria-modal="true"><h2>📜 Luật chơi</h2><div class="rules"><div class="rule"><b>4 đội</b>Mỗi đội có ngân quỹ ban đầu 1.000.000đ.</div><div class="rule"><b>8 hộp</b>Mỗi hộp chứa một câu hỏi có thể tùy chỉnh.</div><div class="rule"><b>Đấu giá</b>Trả giá cao hơn giá hiện tại để dẫn đầu; chốt để mua hộp.</div><div class="rule"><b>🦹‍♂️ 2 lá phiếu tên trộm</b>Mỗi lá cho phép đội sử dụng được +30 điểm và đội bị chọn −30 điểm.</div><div class="rule"><b>🎉 4 hộp</b>Mỗi hộp được cộng 20 điểm.</div><div class="rule"><b>🌟 2 hộp</b>Mỗi hộp được cộng 50 điểm.</div></div><p class="muted">Vị trí 2 lá phiếu tên trộm, 4 hộp +20 điểm và 2 hộp +50 điểm được xáo trộn ngẫu nhiên mỗi ván. Sau khi đọc câu hỏi, bấm “Hiện đáp án”, rồi “Cộng/trừ điểm & đóng”. Nếu mở lá phiếu tên trộm, đội thắng hộp chọn một đội khác; đội sử dụng được +30 điểm và đội bị chọn −30 điểm.</p><div class="modal-actions"><button onclick="closeModal()">Đã hiểu</button></div></div></div>`;}
+function resetGame(){if(!confirm('Chơi lại từ đầu? Ngân quỹ, lượt mua và điểm sẽ được đặt lại; câu hỏi đã chỉnh sửa vẫn được giữ.'))return;teams=teams.map((t,i)=>({...t,money:1000000,points:0,boxes:[],bids:[]}));selectedBox=null;currentBid=0;currentLeader=null;passed.clear();newBoxes();let btn=document.getElementById('closeAuctionBtn');if(btn)btn.remove();document.getElementById('auctionStatus').textContent='Ván chơi mới đã sẵn sàng!';renderTeams();renderBoxes();renderSummary();closeModal();}
+function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});}
+init();
+</script>
+</body>
+</html>
